@@ -18,7 +18,7 @@ const ProductListWrapper = (props) => {
         <Row className='mt-5'>
           {props.products &&
             props.products.map((product) => (
-              <Col xs={12} sm={12} md={6} lg={3} key={product.id}>
+              <Col xs={12} sm={12} md={6} lg={3} key={product._id}>
                 <div className={styles.product_image_wrapper}>
                   <Link href='#'>
                     <a>

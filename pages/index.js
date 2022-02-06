@@ -14,19 +14,18 @@ const HomePage = ({ products }) => {
   );
 };
 
-export const getStaticProps = async () => {
+HomePage.getInitialProps = async () => {
   const response = await fetch(`${apiUrl}/api/product`, {
+    method: 'GET',
     headers: {
-      Accept: 'application/json; charset=UTF-8',
+      accept: 'application/json',
     },
   });
 
-  const products = await response.json();
+  const data = await response.json();
 
   return {
-    props: {
-      products: products,
-    },
+    products: data,
   };
 };
 
