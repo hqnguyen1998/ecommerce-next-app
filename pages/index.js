@@ -15,7 +15,11 @@ const HomePage = ({ products }) => {
 };
 
 export const getStaticProps = async () => {
-  const response = await fetch(`${apiUrl}/api/product`);
+  const response = await fetch(`${apiUrl}/api/product`, {
+    headers: {
+      Accept: 'application/json; charset=UTF-8',
+    },
+  });
 
   const products = await response.json();
 
