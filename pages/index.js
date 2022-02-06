@@ -15,9 +15,7 @@ const HomePage = ({ products }) => {
 };
 
 export const getStaticProps = async () => {
-  const response = await fetch(
-    `https://ecommerce-next-app-three.vercel.app/api/product`
-  );
+  const response = await fetch(`${apiUrl}/api/product`);
 
   const products = await response.json();
 
