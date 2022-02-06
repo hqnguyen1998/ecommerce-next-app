@@ -14,7 +14,7 @@ const HomePage = ({ products }) => {
   );
 };
 
-HomePage.getInitialProps = async () => {
+export const getStaticProps = async () => {
   const response = await fetch(`${apiUrl}/api/product`, {
     method: 'GET',
     headers: {
@@ -25,7 +25,10 @@ HomePage.getInitialProps = async () => {
   const data = await response.json();
 
   return {
-    products: data,
+    props: {
+      products: data,
+    },
+    revalidate: 10,
   };
 };
 
