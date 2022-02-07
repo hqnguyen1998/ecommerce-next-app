@@ -20,7 +20,7 @@ const ProductListWrapper = (props) => {
             props.products.map((product) => (
               <Col xs={12} sm={12} md={6} lg={3} key={product._id}>
                 <div className={styles.product_image_wrapper}>
-                  <Link href='#'>
+                  <Link href={`/products/${product.slug}`}>
                     <a>
                       <Image
                         alt='item-image'
@@ -34,7 +34,7 @@ const ProductListWrapper = (props) => {
                 </div>
 
                 <div className={styles.product_text_wrapper}>
-                  <Link href='#'>
+                  <Link href={`/products/${product.slug}`}>
                     <a>
                       <p>{product.product_title}</p>
                     </a>

@@ -11,7 +11,16 @@ const handler = async (req, res) => {
     if (method === 'GET') {
       const products = await Product.find({});
 
-      res.status(200).json(errorHandler('success', true, '', products));
+      res
+        .status(200)
+        .json(
+          errorHandler(
+            'success',
+            true,
+            'Fetching products data sucessful',
+            products
+          )
+        );
     }
 
     if (method === 'POST') {
