@@ -26,9 +26,12 @@ const SingleProductPage = ({ product: { data } }) => {
           />
         </Col>
         <Col xs={12} md={6}>
-          <h5 className='text-capitalize'>{data.product_title}</h5>
-          <p className='text-secondary'>{data.product_description}</p>
-          <p className='text-danger'>${data.product_prices}</p>
+          <div>
+            <h5 className='text-capitalize'>{data.product_title}</h5>
+            <p className='text-secondary'>{data.product_description}</p>
+            <p className='text-danger'>${data.product_prices}</p>
+          </div>
+
           <Button variant='outline-dark'>Add to cart</Button>
         </Col>
       </Row>
@@ -48,7 +51,7 @@ export const getStaticPaths = async () => {
   }));
   return {
     paths: paths,
-    fallback: true,
+    fallback: 'blocking',
   };
 };
 
