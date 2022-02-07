@@ -4,9 +4,9 @@ import Product from '../../../models/ProductModel';
 
 const handler = async (req, res) => {
   const { method, query } = req;
+  dbConnect();
 
   try {
-    dbConnect();
     if (method === 'GET') {
       const product = await Product.findOne({ slug: query.product_slug });
 
