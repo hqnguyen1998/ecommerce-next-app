@@ -45,7 +45,16 @@ const ProductCard = ({ product }) => {
           </a>
         </Link>
 
-        <p>{product.product_price}</p>
+        {product.product_discount_price ? (
+          <p className='text-danger'>
+            <span className='text-decoration-line-through text-secondary'>
+              ${product.product_prices}
+            </span>{' '}
+            ${product.product_discount_price}
+          </p>
+        ) : (
+          <p className='text-danger'>${product.product_prices}</p>
+        )}
       </div>
     </React.Fragment>
   );
