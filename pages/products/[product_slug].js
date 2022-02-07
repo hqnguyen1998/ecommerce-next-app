@@ -1,12 +1,30 @@
 import React from 'react';
+import Image from 'next/image';
 import fetch from 'isomorphic-unfetch';
+import { Button, Col, Row } from 'react-bootstrap';
+
 import apiUrl from '../../libs/getApiUrl';
 import LayoutComponent from '../../components/layout/layout';
 
 const SingleProductPage = ({ product: { data } }) => {
   return (
-    <LayoutComponent pageTitle='Product page'>
-      {data.product_title}
+    <LayoutComponent pageTitle={data.product_title}>
+      <Row className='mt-5'>
+        <Col xs={12} md={6}>
+          <Image
+            src={data.product_image}
+            alt={data.product_title}
+            width={500}
+            height={500}
+          />
+        </Col>
+        <Col xs={12} md={6}>
+          <h5 className='text-capitalize'>{data.product_title}</h5>
+          <p className='text-secondary'>{data.product_description}</p>
+          <p className='text-danger'>${data.product_prices}</p>
+          <Button variant='outline-dark'>Add to cart</Button>
+        </Col>
+      </Row>
     </LayoutComponent>
   );
 };
@@ -38,6 +56,7 @@ export const getStaticProps = async ({ params }) => {
     props: {
       product: product,
     },
+    revalidate: 10,
   };
 };
 

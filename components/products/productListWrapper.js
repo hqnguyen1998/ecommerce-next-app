@@ -1,8 +1,9 @@
 import React from 'react';
-import Image from 'next/image';
 import Link from 'next/link';
-import styles from './Product.module.css';
 import { Col, Row } from 'react-bootstrap';
+import styles from './Product.module.css';
+
+import ProductCard from './productCard';
 
 const ProductListWrapper = (props) => {
   return (
@@ -19,29 +20,7 @@ const ProductListWrapper = (props) => {
           {props.products &&
             props.products.map((product) => (
               <Col xs={12} sm={12} md={6} lg={3} key={product._id}>
-                <div className={styles.product_image_wrapper}>
-                  <Link href={`/products/${product.slug}`}>
-                    <a>
-                      <Image
-                        alt='item-image'
-                        width={500}
-                        height={500}
-                        layout='responsive'
-                        src={product.product_image}
-                      />
-                    </a>
-                  </Link>
-                </div>
-
-                <div className={styles.product_text_wrapper}>
-                  <Link href={`/products/${product.slug}`}>
-                    <a>
-                      <p>{product.product_title}</p>
-                    </a>
-                  </Link>
-
-                  <p>{product.product_price}</p>
-                </div>
+                <ProductCard product={product} />
               </Col>
             ))}
         </Row>
