@@ -1,4 +1,7 @@
 import React from 'react';
+import { useRouter } from 'next/router';
+import useSWR from 'swr';
+import { fetcher } from '../../libs/fetcher';
 import { Button, Col, Row } from 'react-bootstrap';
 import fetch from 'isomorphic-unfetch';
 import Link from 'next/link';
@@ -9,19 +12,18 @@ import styles from './Product.module.css';
 
 import ProductCard from './productCard';
 
-const ProductListWrapper = (props) => {
-  const [loading, setLoading] = React.useState(false);
+const ProductListWrapper = ({ products }) => {
+  const [isLoading, setLoading] = React.useState(false);
   const [limit, setLimit] = React.useState(config.products_limit);
-  const [products, setProducts] = React.useState(props.products);
+  const router = useRouter();
 
   const handleLoadMore = async () => {
     setLoading(true);
-    const res = await fetch(`${apiUrl}/api/product?limit=${limit + 4}`);
-    const products = await res.json();
-
-    setLimit(limit + 4);
-    setProducts(products.data);
-    setLoading(false);
+    setTimeout(() => {
+      setLimit(limit + 4);
+      setLoading(false);
+      router.push(`/?limit=${limit + 4}`);
+    }, 500);
   };
 
   return (
@@ -45,9 +47,9 @@ const ProductListWrapper = (props) => {
             variant='primary'
             className='d-block'
             onClick={handleLoadMore}
-            disabled={loading || products.length < limit}
+            disabled={isLoading || products.length < limit}
           >
-            {loading ? 'Loading...' : 'Load more'}
+            {isLoading ? 'Loading...' : 'Load more'}
           </Button>
         </Row>
       </div>

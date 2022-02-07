@@ -14,10 +14,11 @@ const HomePage = ({ products }) => {
     </LayoutComponent>
   );
 };
-
-export const getStaticProps = async () => {
+export const getServerSideProps = async ({ query }) => {
   const response = await fetch(
-    `${apiUrl}/api/product?limit=${config.products_limit}`,
+    `${apiUrl}/api/product?limit=${
+      query.limit ? query.limit : config.products_limit
+    }`,
     {
       method: 'GET',
       headers: {
@@ -32,8 +33,28 @@ export const getStaticProps = async () => {
     props: {
       products: data,
     },
-    revalidate: 10,
   };
 };
+
+// export const getStaticProps = async () => {
+//   const response = await fetch(
+//     `${apiUrl}/api/product?limit=${config.products_limit}`,
+//     {
+//       method: 'GET',
+//       headers: {
+//         accept: 'application/json',
+//       },
+//     }
+//   );
+
+//   const data = await response.json();
+
+//   return {
+//     props: {
+//       products: data,
+//     },
+//     revalidate: 10,
+//   };
+// };
 
 export default HomePage;
