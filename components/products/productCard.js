@@ -23,6 +23,7 @@ const ProductCard = ({ product }) => {
               height={500}
               layout='responsive'
               src={product.product_image}
+              priority
             />
           </a>
         </Link>

@@ -1,13 +1,9 @@
 import React from 'react';
 import { useRouter } from 'next/router';
-import useSWR from 'swr';
-import { fetcher } from '../../libs/fetcher';
 import { Button, Col, Row } from 'react-bootstrap';
-import fetch from 'isomorphic-unfetch';
 import Link from 'next/link';
 
 import config from '../../config/config';
-import apiUrl from '../../libs/getApiUrl';
 import styles from './Product.module.css';
 
 import ProductCard from './productCard';

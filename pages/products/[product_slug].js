@@ -18,6 +18,7 @@ const SingleProductPage = ({ product }) => {
             alt={data.product_title}
             width={500}
             height={500}
+            priority
           />
         </Col>
         <Col xs={12} md={6}>
