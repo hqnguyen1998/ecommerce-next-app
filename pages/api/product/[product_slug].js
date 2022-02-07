@@ -10,6 +10,12 @@ const handler = async (req, res) => {
     if (method === 'GET') {
       const product = await Product.findOne({ slug: query.product_slug });
 
+      if (!product) {
+        return res
+          .status(404)
+          .json(errorHandler('error', false, 'Product could not find', null));
+      }
+
       res
         .status(200)
         .json(errorHandler('success', true, 'Fetching product data', product));

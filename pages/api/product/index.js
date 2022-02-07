@@ -3,13 +3,13 @@ import { errorHandler } from '../../../libs/errorHandler';
 import Product from '../../../models/ProductModel';
 
 const handler = async (req, res) => {
-  const { method } = req;
+  const { method, query } = req;
 
   try {
     await dbConnect();
 
     if (method === 'GET') {
-      const products = await Product.find({});
+      const products = await Product.find({}).limit(query.limit);
 
       res
         .status(200)

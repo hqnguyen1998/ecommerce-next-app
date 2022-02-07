@@ -1,4 +1,5 @@
 import React from 'react';
+import config from '../config/config';
 import fetch from 'isomorphic-unfetch';
 import apiUrl from '../libs/getApiUrl';
 import HeroComponent from '../components/hero/hero_component';
@@ -15,12 +16,15 @@ const HomePage = ({ products }) => {
 };
 
 export const getStaticProps = async () => {
-  const response = await fetch(`${apiUrl}/api/product`, {
-    method: 'GET',
-    headers: {
-      accept: 'application/json',
-    },
-  });
+  const response = await fetch(
+    `${apiUrl}/api/product?limit=${config.products_limit}`,
+    {
+      method: 'GET',
+      headers: {
+        accept: 'application/json',
+      },
+    }
+  );
 
   const data = await response.json();
 

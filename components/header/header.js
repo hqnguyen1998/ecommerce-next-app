@@ -22,7 +22,7 @@ const HeaderComponent = ({ pageTitle, title }) => {
         />
       </Head>
 
-      <Navbar bg='light' variant='light'>
+      <Navbar bg='light' variant='light' sticky='top'>
         <Container className={styles.container}>
           <Navbar.Brand>{title}</Navbar.Brand>
           <div>

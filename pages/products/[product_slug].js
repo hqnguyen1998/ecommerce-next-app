@@ -1,5 +1,4 @@
 import React from 'react';
-import { useRouter } from 'next/router';
 import Image from 'next/image';
 import fetch from 'isomorphic-unfetch';
 import { Button, Col, Row } from 'react-bootstrap';
@@ -7,12 +6,8 @@ import { Button, Col, Row } from 'react-bootstrap';
 import apiUrl from '../../libs/getApiUrl';
 import LayoutComponent from '../../components/layout/layout';
 
-const SingleProductPage = ({ product: { data } }) => {
-  const { isFallback } = useRouter();
-
-  if (isFallback) {
-    return <div>Loading...</div>;
-  }
+const SingleProductPage = ({ product }) => {
+  const { data } = product;
 
   return (
     <LayoutComponent pageTitle={data.product_title}>
@@ -67,6 +62,7 @@ export const getStaticProps = async ({ params }) => {
       product: product,
     },
     revalidate: 1,
+    notFound: !product.success,
   };
 };
 
