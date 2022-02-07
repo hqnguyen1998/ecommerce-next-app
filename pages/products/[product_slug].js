@@ -13,9 +13,7 @@ const SingleProductPage = ({ product: { data } }) => {
 
 export const getStaticPaths = async () => {
   const res = await fetch(`${apiUrl}/api/product`, {
-    headers: {
-      accept: 'application/json',
-    },
+    method: 'GET',
   });
 
   const products = await res.json();
@@ -31,9 +29,7 @@ export const getStaticPaths = async () => {
 
 export const getStaticProps = async ({ params }) => {
   const res = await fetch(`${apiUrl}/api/product/${params.product_slug}`, {
-    headers: {
-      accept: 'application/json',
-    },
+    method: 'GET',
   });
   const product = await res.json();
   return {
