@@ -3,7 +3,6 @@ import useSWR from 'swr';
 import { useAppContext } from '../context/AppContext';
 
 import { fetcher } from '../libs/fetcher';
-import apiUrl from '../libs/getApiUrl';
 import HeroComponent from '../components/hero/hero_component';
 import LayoutComponent from '../components/layout/layout';
 import ProductListWrapper from '../components/products/productListWrapper';
@@ -12,7 +11,7 @@ import { Spinner } from 'react-bootstrap';
 const HomePage = () => {
   const { state } = useAppContext();
   const { data, error } = useSWR(
-    `${apiUrl}/api/product?limit=${state.posts.limit}`,
+    `/api/product?limit=${state.posts.limit}`,
     fetcher
   );
   if (error) return <p>Error!</p>;
