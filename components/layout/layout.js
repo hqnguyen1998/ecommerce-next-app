@@ -1,5 +1,6 @@
 import React from 'react';
 import { Container } from 'react-bootstrap';
+import FooterComponent from '../Footer';
 import HeaderComponent from '../header/header';
 
 const LayoutComponent = ({ pageTitle, children }) => {
@@ -8,6 +9,7 @@ const LayoutComponent = ({ pageTitle, children }) => {
       <HeaderComponent pageTitle={pageTitle} title='UNIQLO' />
 
       <Container>{children}</Container>
+      <FooterComponent />
     </React.Fragment>
   );
 };

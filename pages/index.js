@@ -1,60 +1,33 @@
 import React from 'react';
-import config from '../config/config';
-import fetch from 'isomorphic-unfetch';
+import useSWR from 'swr';
+import { useAppContext } from '../context/AppContext';
+
+import { fetcher } from '../libs/fetcher';
 import apiUrl from '../libs/getApiUrl';
 import HeroComponent from '../components/hero/hero_component';
 import LayoutComponent from '../components/layout/layout';
 import ProductListWrapper from '../components/products/productListWrapper';
+import { Spinner } from 'react-bootstrap';
 
-const HomePage = ({ products }) => {
+const HomePage = () => {
+  const { state } = useAppContext();
+  const { data, error } = useSWR(
+    `${apiUrl}/api/product?limit=${state.posts.limit}`,
+    fetcher
+  );
+  if (error) return <p>Error!</p>;
+
   return (
     <LayoutComponent pageTitle='Welcome to my stores'>
       <HeroComponent />
-      <ProductListWrapper products={products.data} />
+
+      {!data ? (
+        <Spinner animation='grow' variant='danger' />
+      ) : (
+        <ProductListWrapper products={data.data} />
+      )}
     </LayoutComponent>
   );
 };
-export const getServerSideProps = async ({ query }) => {
-  const response = await fetch(
-    `${apiUrl}/api/product?limit=${
-      query.limit ? query.limit : config.products_limit
-    }`,
-    {
-      method: 'GET',
-      headers: {
-        accept: 'application/json',
-      },
-    }
-  );
-
-  const data = await response.json();
-
-  return {
-    props: {
-      products: data,
-    },
-  };
-};
-
-// export const getStaticProps = async () => {
-//   const response = await fetch(
-//     `${apiUrl}/api/product?limit=${config.products_limit}`,
-//     {
-//       method: 'GET',
-//       headers: {
-//         accept: 'application/json',
-//       },
-//     }
-//   );
-
-//   const data = await response.json();
-
-//   return {
-//     props: {
-//       products: data,
-//     },
-//     revalidate: 10,
-//   };
-// };
 
 export default HomePage;

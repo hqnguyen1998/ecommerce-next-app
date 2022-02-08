@@ -1,17 +1,20 @@
 import { SessionProvider, useSession } from 'next-auth/react';
+import { AppWrapper } from '../context/AppContext';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../styles/globals.css';
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }) {
   return (
     <SessionProvider session={session}>
-      {Component.auth ? (
-        <Auth>
+      <AppWrapper>
+        {Component.auth ? (
+          <Auth>
+            <Component {...pageProps} />
+          </Auth>
+        ) : (
           <Component {...pageProps} />
-        </Auth>
-      ) : (
-        <Component {...pageProps} />
-      )}
+        )}
+      </AppWrapper>
     </SessionProvider>
   );
 }

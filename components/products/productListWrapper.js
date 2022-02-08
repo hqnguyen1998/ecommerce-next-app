@@ -1,24 +1,22 @@
 import React from 'react';
+import { useAppContext } from '../../context/AppContext';
 import { useRouter } from 'next/router';
 import { Button, Col, Row } from 'react-bootstrap';
 import Link from 'next/link';
 
-import config from '../../config/config';
 import styles from './Product.module.css';
 
 import ProductCard from './productCard';
 
 const ProductListWrapper = ({ products }) => {
+  const { state, dispatch } = useAppContext();
   const [isLoading, setLoading] = React.useState(false);
-  const [limit, setLimit] = React.useState(config.products_limit);
-  const router = useRouter();
 
   const handleLoadMore = async () => {
     setLoading(true);
     setTimeout(() => {
-      setLimit(limit + 4);
+      dispatch({ type: 'LOAD_MORE_POSTS' });
       setLoading(false);
-      router.push(`/?limit=${limit + 4}`);
     }, 500);
   };
 
@@ -40,10 +38,12 @@ const ProductListWrapper = ({ products }) => {
               </Col>
             ))}
           <Button
-            variant='primary'
+            variant={
+              state.posts.limit > products.length ? 'secondary' : 'primary'
+            }
             className='d-block'
             onClick={handleLoadMore}
-            disabled={isLoading || products.length < limit}
+            disabled={isLoading || state.posts.limit > products.length}
           >
             {isLoading ? 'Loading...' : 'Load more'}
           </Button>
