@@ -1,13 +1,15 @@
 /* eslint-disable @next/next/no-page-custom-font */
 import React from 'react';
-import { useSession, signIn, signOut } from 'next-auth/react';
+import { useAppContext } from '../../context/AppContext';
+import { useSession, signOut } from 'next-auth/react';
 import Link from 'next/link';
 import Image from 'next/image';
 import Head from 'next/head';
-import { Button, Container, Nav, Navbar } from 'react-bootstrap';
+import { Badge, Button, Container, Nav, Navbar } from 'react-bootstrap';
 import styles from './Header.module.css';
 
 const HeaderComponent = ({ pageTitle, title }) => {
+  const { state } = useAppContext();
   const { data: session, status } = useSession();
 
   // console.log(session);
@@ -90,6 +92,9 @@ const HeaderComponent = ({ pageTitle, title }) => {
                 width={24}
                 height={24}
               />
+              <Badge bg='dark'>
+                {state.products.carts.length ? state.products.carts.length : 0}
+              </Badge>
             </Button>
           </div>
         </Container>

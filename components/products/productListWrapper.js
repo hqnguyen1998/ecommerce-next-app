@@ -39,11 +39,11 @@ const ProductListWrapper = ({ products }) => {
             ))}
           <Button
             variant={
-              state.posts.limit > products.length ? 'secondary' : 'primary'
+              state.products.limit > products.length ? 'secondary' : 'primary'
             }
             className='d-block'
             onClick={handleLoadMore}
-            disabled={isLoading || state.posts.limit > products.length}
+            disabled={isLoading || state.products.limit > products.length}
           >
             {isLoading ? 'Loading...' : 'Load more'}
           </Button>

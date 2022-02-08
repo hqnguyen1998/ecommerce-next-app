@@ -11,7 +11,7 @@ import { Spinner } from 'react-bootstrap';
 const HomePage = () => {
   const { state } = useAppContext();
   const { data, error } = useSWR(
-    `/api/product?limit=${state.posts.limit}`,
+    `/api/product?limit=${state.products.limit}`,
     fetcher
   );
   if (error) return <p>Error!</p>;

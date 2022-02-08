@@ -67,4 +67,4 @@ export const getStaticProps = async ({ params }) => {
   };
 };
 
-export default SingleProductPage;
+export default React.memo(SingleProductPage);

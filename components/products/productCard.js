@@ -1,4 +1,5 @@
 import React from 'react';
+import { useAppContext } from '../../context/AppContext';
 import cls from 'classnames';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -6,7 +7,12 @@ import styles from './Product.module.css';
 import { Button } from 'react-bootstrap';
 
 const ProductCard = ({ product }) => {
+  const { state, dispatch } = useAppContext();
   const [toggle, setToggle] = React.useState(false);
+
+  const handleAddProductToCart = () => {
+    dispatch({ type: 'ADD_TO_CART', payload: product });
+  };
 
   return (
     <React.Fragment>
@@ -33,7 +39,11 @@ const ProductCard = ({ product }) => {
             styles.modal_product
           )}
         >
-          <Button variant='primary' className='text-white'>
+          <Button
+            variant='primary'
+            className='text-white'
+            onClick={handleAddProductToCart}
+          >
             Add to cart
           </Button>
         </div>
