@@ -20,8 +20,8 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }) {
 }
 
 const Auth = ({ children }) => {
-  const { data: session, status } = useSession({ required: true });
-  console.log(status);
+  const { data: session } = useSession({ required: true });
+
   const isUser = !!session?.user;
 
   if (isUser) {

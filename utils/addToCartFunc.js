@@ -1,6 +1,5 @@
 export const addToCartFunc = (carts, newProduct) => {
   const isProductExist = carts.filter((cart) => cart._id === newProduct._id);
-  console.log(isProductExist);
 
   if (!isProductExist.length) {
     return [{ ...newProduct, quantity: 1 }, ...carts];

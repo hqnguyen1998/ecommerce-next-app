@@ -61,7 +61,7 @@ const HeaderComponent = ({ pageTitle, title }) => {
                 </Link>
               </Nav>
             </div>
-            <div>
+            <div className='d-flex align-items-center'>
               <Button variant='link' size='sm'>
                 <Image
                   src='/static/icons/search_icon.svg'
@@ -82,8 +82,8 @@ const HeaderComponent = ({ pageTitle, title }) => {
                   </Button>
                 </Link>
               ) : (
-                <>
-                  <div className='d-block'>
+                <React.Fragment>
+                  <div>
                     <Image
                       width={30}
                       height={30}
@@ -99,7 +99,7 @@ const HeaderComponent = ({ pageTitle, title }) => {
                       height={24}
                     />
                   </Button>
-                </>
+                </React.Fragment>
               )}
 
               <Button variant='link' size='sm' onClick={handleCartButton}>

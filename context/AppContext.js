@@ -12,6 +12,7 @@ const initialState = {
     limit: 4,
     increaseLimitBy: 4,
     carts: [],
+    totalPrice: 0,
   },
 };
 export const AppContext = createContext(initialState);

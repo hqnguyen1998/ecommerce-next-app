@@ -1,9 +1,11 @@
 import React from 'react';
+import { useRouter } from 'next/router';
 import Image from 'next/image';
 import { Button, CloseButton, Offcanvas, ListGroup } from 'react-bootstrap';
 import { useAppContext } from '../../context/AppContext';
 
 const CartWrapper = ({ show, onClose }) => {
+  const router = useRouter();
   const { state, dispatch } = useAppContext();
 
   const handleRemoveProduct = (product) => {
@@ -11,6 +13,10 @@ const CartWrapper = ({ show, onClose }) => {
       type: 'REMOVE_PRODUCT_CART',
       payload: product,
     });
+  };
+
+  const handleCheckOutButton = () => {
+    router.push('/checkouts');
   };
 
   return (
@@ -61,11 +67,14 @@ const CartWrapper = ({ show, onClose }) => {
             <hr />
           </span>
           <p className='d-flex justify-content-between'>
-            Total: <span className='text-danger'>$215</span>
+            Total:{' '}
+            <span className='text-danger'>${state.products.totalPrice}</span>
           </p>
           <div className='d-grid gap-2'>
             <Button variant='outline-dark'>View Cart</Button>
-            <Button variant='dark'>Checkout</Button>
+            <Button variant='dark' onClick={handleCheckOutButton}>
+              Checkout
+            </Button>
           </div>
         </div>
       )}
