@@ -22,10 +22,6 @@ const ProductListWrapper = ({ products }) => {
     );
     const newProds = await res.json();
 
-    if (newProds.data.length <= data.length) {
-      setHasMore(false);
-    }
-
     setData(() => [...newProds.data]);
   };
 
