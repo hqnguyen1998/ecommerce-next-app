@@ -1,32 +1,31 @@
 import React from 'react';
-import useSWR from 'swr';
-import { Spinner } from 'react-bootstrap';
-import { useAppContext } from '../context/AppContext';
+import fetch from 'isomorphic-unfetch';
+import apiUrl from '../libs/getApiUrl';
 
-import { fetcher } from '../libs/fetcher';
 import HeroComponent from '../components/hero/hero_component';
 import LayoutComponent from '../components/layout/layout';
 import ProductListWrapper from '../components/products/productListWrapper';
 
-const HomePage = () => {
-  const { state } = useAppContext();
-  const { data, error } = useSWR(
-    `/api/product?limit=${state.products.limit}`,
-    fetcher
-  );
-  if (error) return <p>Error!</p>;
-
+const HomePage = ({ products }) => {
   return (
     <LayoutComponent pageTitle='Welcome to my stores'>
       <HeroComponent />
 
-      {!data ? (
-        <Spinner animation='grow' variant='danger' />
-      ) : (
-        <ProductListWrapper products={data.data} />
-      )}
+      <ProductListWrapper products={products} />
     </LayoutComponent>
   );
+};
+
+export const getStaticProps = async () => {
+  const res = await fetch(`${apiUrl}/api/product?limit=8`);
+  const product = await res.json();
+
+  return {
+    props: {
+      products: product.data,
+    },
+    revalidate: 60,
+  };
 };
 
 export default HomePage;

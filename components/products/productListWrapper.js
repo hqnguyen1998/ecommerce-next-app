@@ -1,23 +1,32 @@
 import React from 'react';
-import { useAppContext } from '../../context/AppContext';
-import { useRouter } from 'next/router';
-import { Button, Col, Row } from 'react-bootstrap';
 import Link from 'next/link';
+import fetch from 'isomorphic-unfetch';
+import InfiniteScroll from 'react-infinite-scroll-component';
+import { useAppContext } from '../../context/AppContext';
+import { Col, Row } from 'react-bootstrap';
 
 import styles from './Product.module.css';
-
+import apiUrl from '../../libs/getApiUrl';
 import ProductCard from './productCard';
 
 const ProductListWrapper = ({ products }) => {
-  const { state, dispatch } = useAppContext();
-  const [isLoading, setLoading] = React.useState(false);
+  const { state } = useAppContext();
+  const [data, setData] = React.useState(products);
+  const [hasMore, setHasMore] = React.useState(true);
 
-  const handleLoadMore = async () => {
-    setLoading(true);
-    setTimeout(() => {
-      dispatch({ type: 'LOAD_MORE_POSTS' });
-      setLoading(false);
-    }, 500);
+  const getMorePosts = async () => {
+    const res = await fetch(
+      `${apiUrl}/api/product?limit=${
+        data.length + state.products.increaseLimitBy
+      }`
+    );
+    const newProds = await res.json();
+
+    if (newProds.data.length <= data.length) {
+      setHasMore(false);
+    }
+
+    setData(() => [...newProds.data]);
   };
 
   return (
@@ -30,25 +39,21 @@ const ProductListWrapper = ({ products }) => {
       </div>
 
       <div id='furniture'>
-        <Row className='mt-5'>
-          {products &&
-            products.map((product) => (
-              <Col xs={12} sm={12} md={6} lg={3} key={product._id}>
-                <ProductCard product={product} />
-              </Col>
-            ))}
-          <Button
-            variant={
-              state.products.limit > products.length ? 'secondary' : 'primary'
-            }
-            className='d-block'
-            size='sm'
-            onClick={handleLoadMore}
-            disabled={isLoading || state.products.limit > products.length}
-          >
-            {isLoading ? 'Loading...' : 'Load more'}
-          </Button>
-        </Row>
+        <InfiniteScroll
+          dataLength={data.length}
+          next={getMorePosts}
+          hasMore={hasMore}
+          loader={<h3>Loading...</h3>}
+        >
+          <Row className='mt-5'>
+            {data &&
+              data.map((product) => (
+                <Col xs={12} sm={12} md={6} lg={3} key={product._id}>
+                  <ProductCard product={product} />
+                </Col>
+              ))}
+          </Row>
+        </InfiniteScroll>
       </div>
     </div>
   );

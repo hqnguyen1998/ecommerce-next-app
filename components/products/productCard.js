@@ -7,7 +7,7 @@ import styles from './Product.module.css';
 import { Button } from 'react-bootstrap';
 
 const ProductCard = ({ product }) => {
-  const { state, dispatch } = useAppContext();
+  const { dispatch } = useAppContext();
   const [toggle, setToggle] = React.useState(false);
 
   const handleAddProductToCart = () => {

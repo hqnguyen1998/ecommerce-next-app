@@ -9,7 +9,7 @@ import { AppReducer } from './AppReducer';
 
 const initialState = {
   products: {
-    limit: 4,
+    limit: 8,
     increaseLimitBy: 4,
     carts: [],
     totalPrice: 0,
@@ -31,7 +31,13 @@ export const AppWrapper = ({ children }) => {
 
   useEffect(() => {
     if (state !== initialState) {
-      localStorage.setItem('state', JSON.stringify(state));
+      localStorage.setItem(
+        'state',
+        JSON.stringify({
+          carts: state.products.carts,
+          totalPrice: state.products.totalPrice,
+        })
+      );
     }
   }, [state]);
 

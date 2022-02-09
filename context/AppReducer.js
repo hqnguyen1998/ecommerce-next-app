@@ -5,7 +5,13 @@ import { removeProductFromCart } from '../utils/removeProductFromCart';
 export const AppReducer = (state, action) => {
   switch (action.type) {
     case 'INIT_STORED': {
-      return action.payload;
+      return {
+        products: {
+          ...state.products,
+          carts: action.payload.carts,
+          totalPrice: action.payload.totalPrice,
+        },
+      };
     }
     case 'LOAD_MORE_POSTS': {
       return {
