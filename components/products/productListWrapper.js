@@ -6,7 +6,6 @@ import { useAppContext } from '../../context/AppContext';
 import { Col, Row } from 'react-bootstrap';
 
 import styles from './Product.module.css';
-import apiUrl from '../../libs/getApiUrl';
 import ProductCard from './productCard';
 
 const ProductListWrapper = ({ products }) => {
@@ -19,6 +18,10 @@ const ProductListWrapper = ({ products }) => {
       `/api/product?limit=${data.length + state.products.increaseLimitBy}`
     );
     const newProds = await res.json();
+
+    if (data.length < newProds.data.length) {
+      setHasMore(false);
+    }
 
     setData(() => [...newProds.data]);
   };
@@ -38,6 +41,7 @@ const ProductListWrapper = ({ products }) => {
           next={getMorePosts}
           hasMore={hasMore}
           loader={<h3>Loading...</h3>}
+          scrollThreshold={1}
         >
           <Row className='mt-5'>
             {data &&
