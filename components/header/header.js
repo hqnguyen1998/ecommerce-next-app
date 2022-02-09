@@ -41,7 +41,7 @@ const HeaderComponent = ({ pageTitle, title }) => {
         sticky='top'
       >
         <Container className={styles.container}>
-          <Navbar.Brand>{title}</Navbar.Brand>
+          <Navbar.Brand className='text-uppercase'>{title}</Navbar.Brand>
           <Navbar.Toggle aria-controls='responsive-navbar-nav' />
           <Navbar.Collapse id='responsive-navbar-nav'>
             <div className='d-block m-auto'>

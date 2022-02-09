@@ -2,7 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import { getSession, useSession } from 'next-auth/react';
 
-import { Breadcrumb, Col, Row } from 'react-bootstrap';
+import { Breadcrumb, Col, Container, Row } from 'react-bootstrap';
 import InformationCheckOut from '../../components/checkout/information_checkout';
 
 const CheckOutPage = () => {
@@ -40,8 +40,8 @@ const CheckOutPage = () => {
 
   return (
     <React.Fragment>
-      <Row>
-        <Col sm={12} md={6} className='p-5'>
+      <Row className='justify-content-center'>
+        <Col sm={12} md={12} lg={{ offset: 1, span: 5 }} className='p-5'>
           <Link href='/'>
             <a>
               <h2 className='text-uppercase'>Uniqlo</h2>
@@ -62,13 +62,13 @@ const CheckOutPage = () => {
           </Breadcrumb>
           {currentStep === 2 && <InformationCheckOut user={user} />}
         </Col>
-        <Col
-          sm={12}
-          md={6}
-          className='p-5'
-          style={{ backgroundColor: '#eee', height: '100vh' }}
-        >
-          right
+        <Col sm={12} md={12} lg={{ offset: 1, span: 5 }}>
+          <div
+            style={{ backgroundColor: '#eee', height: '100vh' }}
+            className='p-5'
+          >
+            right
+          </div>
         </Col>
       </Row>
     </React.Fragment>
