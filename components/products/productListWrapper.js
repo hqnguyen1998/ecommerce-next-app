@@ -42,6 +42,7 @@ const ProductListWrapper = ({ products }) => {
               state.products.limit > products.length ? 'secondary' : 'primary'
             }
             className='d-block'
+            size='sm'
             onClick={handleLoadMore}
             disabled={isLoading || state.products.limit > products.length}
           >

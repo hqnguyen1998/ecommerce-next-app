@@ -1,12 +1,12 @@
 import React from 'react';
 import useSWR from 'swr';
+import { Spinner } from 'react-bootstrap';
 import { useAppContext } from '../context/AppContext';
 
 import { fetcher } from '../libs/fetcher';
 import HeroComponent from '../components/hero/hero_component';
 import LayoutComponent from '../components/layout/layout';
 import ProductListWrapper from '../components/products/productListWrapper';
-import { Spinner } from 'react-bootstrap';
 
 const HomePage = () => {
   const { state } = useAppContext();

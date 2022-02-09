@@ -1,4 +1,4 @@
 // eslint-disable-next-line import/no-anonymous-default-export
 export default {
-  products_limit: 4,
+  mongo_url: process.env.MONGO_URI,
 };
