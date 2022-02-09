@@ -16,9 +16,7 @@ const ProductListWrapper = ({ products }) => {
 
   const getMorePosts = async () => {
     const res = await fetch(
-      `${apiUrl}/api/product?limit=${
-        data.length + state.products.increaseLimitBy
-      }`
+      `/api/product?limit=${data.length + state.products.increaseLimitBy}`
     );
     const newProds = await res.json();
 
